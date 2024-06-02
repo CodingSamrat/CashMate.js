@@ -1,0 +1,26 @@
+[
+    {
+        "type": "earning",
+        "amount": 12,
+        "description": "snx",
+        "date": "2024-06-02T05:27:12.176Z"
+    },
+    {
+        "type": "expense",
+        "amount": 12,
+        "description": "snx",
+        "date": "2024-06-02T05:27:42.474Z"
+    },
+    {
+        "type": "earning",
+        "amount": 100,
+        "description": "",
+        "date": "2024-06-02T05:28:05.846Z"
+    },
+    {
+        "type": "expense",
+        "amount": 2,
+        "description": "food",
+        "date": "2024-06-02T05:35:00.314Z"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "earnings": [
+        {
+            "amount": 7270,
+            "description": "--",
+            "date": "2024-06-02T04:31:59.444Z"
+        }
+    ],
+    "expenses": [
+        {
+            "amount": 875,
+            "description": "Bipro",
+            "date": "2024-06-02T04:33:47.885Z"
+        },
+        {
+            "amount": 30,
+            "description": "mlns",
+            "date": "2024-06-02T04:35:27.714Z"
+        }
+    ]
+}

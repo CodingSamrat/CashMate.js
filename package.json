@@ -1,0 +1,19 @@
+{
+  "name": "cashmate",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "bin": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cli-table3": "^0.6.5",
+    "inquirer": "^9.2.22",
+    "yargs": "^17.7.2"
+  }
+}
