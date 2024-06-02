@@ -13,7 +13,7 @@ import { uId } from './libs/index.js';
 const homeDir = os.homedir();
 
 
-const filePath = path.join(homeDir, '.cashmate.data.json')
+const filePath = path.join(homeDir, 'test.cashmate.data.json')
 
 // Function to get formatted date as DD-MM-YYYY
 function getDDMMYYYY(date) {
@@ -43,7 +43,7 @@ function getFormattedDate(date) {
 
 // Function to clear the terminal
 const clearTerminal = async () => {
-    exec('clear', (err) => {
+    exec('cls', (err) => {
         if (err) {
             console.error('Error clearing the terminal:', err);
         }
