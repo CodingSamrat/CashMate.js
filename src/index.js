@@ -1,68 +1,26 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import yargs from "yargs/yargs";
-import { hideBin } from "yargs/helpers";
+
 import inquirer from 'inquirer';
 import { exec } from 'child_process';
 import CliTable3 from 'cli-table3';
 import os from 'os';
 import path from 'path';
 import { uId } from './libs/index.js';
+import { csargs } from './commsnds.js';
+import yargs from 'yargs/yargs';
+import { hideBin } from "yargs/helpers"
+
+
+yargs(hideBin(process.env)).parse()
+// csargs.parse()
 
 const homeDir = os.homedir();
+const csDir = path.join(homeDir, 'Documents', 'CodingSamrat');
+const filePath = path.join(csDir, 'cashmate', 'test.cashmate.data.json')
 
 
-const filePath = path.join(homeDir, 'test.cashmate.data.json')
-
-// Function to get formatted date as DD-MM-YYYY
-function getDDMMYYYY(date) {
-    const _date = new Date(date);
-    const day = String(_date.getDate()).padStart(2, '0');
-    const month = String(_date.getMonth() + 1).padStart(2, '0');
-    const year = _date.getFullYear();
-    return `${day}-${month}-${year}`;
-}
-
-function getHHMM(date) {
-    const _date = new Date(date);
-
-    let hours = _date.getHours();
-    let minutes = _date.getMinutes();
-
-    // Add leading zeros to hours and minutes if needed
-    if (hours < 10) hours = '0' + hours;
-    if (minutes < 10) minutes = '0' + minutes;
-
-    return `${hours}:${minutes}`;
-}
-
-function getFormattedDate(date) {
-    return `${getDDMMYYYY(date)} ${getHHMM(date)}`;
-}
-
-// Function to clear the terminal
-const clearTerminal = async () => {
-    exec('cls', (err) => {
-        if (err) {
-            console.error('Error clearing the terminal:', err);
-        }
-    });
-};
-
-// Function to load data from JSON file
-const loadData = () => {
-    if (!fs.existsSync(filePath)) {
-        return [];
-    }
-    const data = fs.readFileSync(filePath);
-    return JSON.parse(data);
-};
-
-// Function to save data to JSON file
-const saveData = (data) => {
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
-};
 
 // Function to add a new record
 const addRecord = async () => {
@@ -167,7 +125,7 @@ const viewRecords = async () => {
 
 // Main function
 const main = async () => {
-    clearTerminal();
+
 
     const answer = await inquirer.prompt({
         type: 'list',
@@ -181,7 +139,6 @@ const main = async () => {
             await addRecord();
             break;
         case 'View records':
-            await clearTerminal();
             await viewRecords();
             break;
         case 'Exit':
