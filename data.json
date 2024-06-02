@@ -1,26 +1,30 @@
 [
     {
+        "id": "f6e8e4b2-245f-4e90-ad1e-a374f4818a2d",
         "type": "earning",
-        "amount": 12,
-        "description": "snx",
-        "date": "2024-06-02T05:27:12.176Z"
+        "amount": 7270,
+        "description": "dad",
+        "date": "2024-06-02T09:54:14.361Z"
     },
     {
+        "id": "903be466-a690-4993-89b8-1c5eba5255d6",
         "type": "expense",
-        "amount": 12,
-        "description": "snx",
-        "date": "2024-06-02T05:27:42.474Z"
+        "amount": 875,
+        "description": "Bipro",
+        "date": "2024-06-02T09:56:04.651Z"
     },
     {
-        "type": "earning",
-        "amount": 100,
-        "description": "",
-        "date": "2024-06-02T05:28:05.846Z"
-    },
-    {
+        "id": "b2a26348-37e0-406e-b159-0e5e8e6a7dcd",
         "type": "expense",
-        "amount": 2,
-        "description": "food",
-        "date": "2024-06-02T05:35:00.314Z"
+        "amount": 1348,
+        "description": "Meel (may)",
+        "date": "2024-06-02T09:56:37.751Z"
+    },
+    {
+        "id": "aac83314-924a-4cba-9c9f-c578ed769139",
+        "type": "expense",
+        "amount": 30,
+        "description": "mlns",
+        "date": "2024-06-02T09:57:35.481Z"
     }
 ]

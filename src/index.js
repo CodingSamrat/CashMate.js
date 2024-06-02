@@ -1,13 +1,19 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import yargs from "yargs/yargs"
-import { hideBin } from "yargs/helpers"
+import yargs from "yargs/yargs";
+import { hideBin } from "yargs/helpers";
 import inquirer from 'inquirer';
 import { exec } from 'child_process';
 import CliTable3 from 'cli-table3';
+import os from 'os';
+import path from 'path';
+import { uId } from './libs/index.js';
 
-const path = 'D:\\Dev\\Projects\\Micro Projects\\CashMate.js\\data.json';
+const homeDir = os.homedir();
+
+
+const filePath = path.join(homeDir, '.cashmate.data.json')
 
 // Function to get formatted date as DD-MM-YYYY
 function getDDMMYYYY(date) {
@@ -19,7 +25,7 @@ function getDDMMYYYY(date) {
 }
 
 function getHHMM(date) {
-    const _date = new Date(date)
+    const _date = new Date(date);
 
     let hours = _date.getHours();
     let minutes = _date.getMinutes();
@@ -35,10 +41,8 @@ function getFormattedDate(date) {
     return `${getDDMMYYYY(date)} ${getHHMM(date)}`;
 }
 
-
-
 // Function to clear the terminal
-const clearTerminal = () => {
+const clearTerminal = async () => {
     exec('clear', (err) => {
         if (err) {
             console.error('Error clearing the terminal:', err);
@@ -48,16 +52,16 @@ const clearTerminal = () => {
 
 // Function to load data from JSON file
 const loadData = () => {
-    if (!fs.existsSync(path)) {
+    if (!fs.existsSync(filePath)) {
         return [];
     }
-    const data = fs.readFileSync(path);
+    const data = fs.readFileSync(filePath);
     return JSON.parse(data);
 };
 
 // Function to save data to JSON file
 const saveData = (data) => {
-    fs.writeFileSync(path, JSON.stringify(data, null, 4));
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
 };
 
 // Function to add a new record
@@ -87,6 +91,7 @@ const addRecord = async () => {
 
     const { type, amount, description } = answers;
     const record = {
+        id: uId,
         type,
         amount: parseFloat(amount),
         description,
@@ -106,26 +111,53 @@ const calculateBalance = (data) => {
     return totalEarnings - totalExpenses;
 };
 
+// Function to calculate the total for a given type
+const calculateTotal = (data, type) => {
+    return data.reduce((sum, record) => record.type === type ? sum + record.amount : sum, 0);
+};
+
 // Function to view records
-const viewRecords = () => {
-    const data = loadData();
+const viewRecords = async () => {
+    const { viewType } = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'viewType',
+            message: 'Which records would you like to view?',
+            choices: ['all', 'expense', 'earning'],
+        },
+    ]);
+
+    const data = loadData().reverse();
 
     const table = new CliTable3({
         head: ['Date', 'Description', 'Type', 'Amount'],
-        colWidths: [18, 20, 9, 10]
+        colWidths: [18, 20, 9, 10],
+        colAligns: ['center', 'left', 'center', 'right'],
     });
+
+    // Filter records based on the viewType
+    const filteredData = data.filter(record => viewType === 'all' || record.type === viewType);
 
     // Add records to the table
-    data.forEach(record => {
+    filteredData.forEach(record => {
         const sign = record.type === 'earning' ? '+' : '-';
-        table.push([getFormattedDate(record.date), record.description, record.type, `${sign} ${record.amount}`]);
+        table.push([getFormattedDate(record.date), record.description, record.type, `${record.amount}`]);
     });
 
-    // Calculate the balance
-    const balance = calculateBalance(data);
+    // Calculate total or balance
+    let footerLabel, footerValue;
+    if (viewType === 'all') {
+        const balance = calculateBalance(data);
+        footerLabel = 'Balance';
+        footerValue = balance;
+    } else {
+        const total = calculateTotal(data, viewType);
+        footerLabel = viewType === 'earning' ? 'Total' : 'Total';
+        footerValue = total;
+    }
 
-    // Add the balance to the table
-    table.push(['', '', 'Balance', balance]);
+    // Add the total or balance to the table
+    table.push(['', '', footerLabel, footerValue]);
 
     // Display the table in the terminal
     console.log(table.toString());
@@ -149,7 +181,8 @@ const main = async () => {
             await addRecord();
             break;
         case 'View records':
-            viewRecords();
+            await clearTerminal();
+            await viewRecords();
             break;
         case 'Exit':
             console.log('Goodbye!');
