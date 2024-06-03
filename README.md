@@ -1,6 +1,21 @@
 ## CashMate
 
 ### Installation:
+- Open terminal & clone [cashmate]('https://github.com/CodingSamrat/CashMate.js.git') git repo
+    ``` sh
+    https://github.com/CodingSamrat/CashMate.js.git
+    ```
+
+- Go to  `CashMate.js` directory
+    ``` sh
+    cd CashMate.js
+    ```
+
+- install `cashmate` globally 
+    ``` sh
+    npm i -g .
+    ```
+
 
 ### Commands:
 
@@ -11,13 +26,9 @@
     ``` js
     type: {
         choices: [
-            'expense', 
-            'earning'
-        ],
-        alias  : {
-            'expense': ['exp','1'],
-            'earning': ['ern','2'],
-        }
+            'expense', // alias : ['exp']
+            'earning'  // alias : ['ern']
+        ]
     }
     ```
 
@@ -27,14 +38,10 @@
     ``` js
     type: {
         choices: [
-            'all',  // Default
-            'expense', 
-            'earning'
-        ],
-        alias  : {
-            'expense': ['exp','1'],
-            'earning': ['ern','2'],
-        }
+            'all',     // default
+            'expense', // alias : ['exp']
+            'earning'  // alias : ['ern']
+        ]
     }
     ```
 
