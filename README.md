@@ -10,10 +10,14 @@
     ``` sh
     cd CashMate.js
     ```
-
-- install `cashmate` globally 
+- Install dependencies
     ``` sh
-    npm i -g .
+    npm install
+    ```
+
+- Install `cashmate` globally 
+    ``` sh
+    npm install -g .
     ```
 
 

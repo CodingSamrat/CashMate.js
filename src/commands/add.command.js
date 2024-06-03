@@ -8,7 +8,7 @@ const AddCommand = {
         return yargs.positional('type', {
             describe: 'Type of records (expense, earning)',
             type: 'string',
-            choices: ['expense', 'earning', 'exp', 'ern', '1', '2'],
+            choices: ['expense', 'earning', 'exp', 'ern'],
         });
     },
     handler: (argv) => {
@@ -19,8 +19,6 @@ const AddCommand = {
         const typeMapping = {
             exp: 'expense',
             ern: 'earning',
-            '1': 'expense',
-            '2': 'earning',
         };
 
         type = typeMapping[type] || type;

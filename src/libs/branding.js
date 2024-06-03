@@ -2,7 +2,7 @@ export function Branding() {
     log('==============================================================')
     log('                         CASHMATE                             ')
     log('                    track your expenses                       ')
-    log('                      version: 1.0.1                          ')
+    log('                      version: 1.0.2                          ')
     log('==============================================================')
 }
 
